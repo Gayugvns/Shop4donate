@@ -1,39 +1,25 @@
-import './App.css';
-import Navbar from './components/common/Navbar';
-import DonationCarouselHero from './components/home/DonationCarouselHero';
-import HowItWorks from './components/home/Howitworks';
-import Count from './components/home/count';
-import DynamicNeedSection from "./components/home/DynamicNeedSection.1";
-import ProductList from './components/home/ProductList';
-
-import './index.css';
-
+import {  Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Products from "./pages/Products";
+import Profile from "./pages/ProfilePage";
+import Settings from "./pages/Settings";
+import Notifications from "./pages/Notifications";
+import DonationHistory from "./pages/DonationHistory";
 
 function App() {
   return (
-    <>
-    <Navbar />
    
-        <DonationCarouselHero/>
-
-        <div className="mt-10">
-          <Count />
-       
-        </div>
-        
-        <div className="mt-10">
-          <HowItWorks />
-       
-        </div>
-        <div className="mt-10">
-          <DynamicNeedSection />
-          </div>
-          <div className='mt-10 '>
-            <ProductList />
-          </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/donations" element={<DonationHistory />} />
+      </Routes>
+     
+     
     
-    
-    </>
   );
 }
 

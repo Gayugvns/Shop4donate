@@ -1,17 +1,7 @@
-// [NO CHANGE IN IMPORTS]
 import React, { useEffect, useState } from "react";
-import {
-  FaSearch,
-  FaHeart,
-  FaShoppingCart,
-  FaBell,
-  FaBars,
-  FaTimes,
-  FaUser,
-  FaMoon,
-  FaSun,
-} from "react-icons/fa";
+import { FaSearch, FaHeart, FaShoppingCart, FaBell, FaBars, FaTimes, FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 
 // Navbar Component
 const Navbar = () => {
@@ -23,6 +13,8 @@ const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [cartItems] = useState(3); // Change this dynamically later
   const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Notification dropdown
+
+  const navigate = useNavigate();  // Hook to navigate programmatically
 
   // Scroll effect
   useEffect(() => {
@@ -40,11 +32,7 @@ const Navbar = () => {
     <div className={`fixed w-full top-8 z-50 ${darkMode ? "dark" : ""}`}>
       <div className="text-black dark:text-white">
         <div
-          className={`mx-2 max-w-9xl px-2 py-3 mb-5 flex items-center justify-between transition-all duration-300 ${
-            scrolled
-              ? "backdrop-blur-lg bg-white/30 dark:bg-gray-800/40 shadow-md rounded-b-2xl"
-              : "bg-transparent"
-          }`}
+          className={`mx-2 max-w-9xl px-2 py-3 mb-5 flex items-center justify-between transition-all duration-300 ${scrolled ? "backdrop-blur-lg bg-white/30 dark:bg-gray-800/40 shadow-md rounded-b-2xl" : "bg-transparent"}`}
         >
           {/* Logo */}
           <a href="/" className="flex items-center space-x-6 ms-5 cursor-pointer">
@@ -53,7 +41,6 @@ const Navbar = () => {
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center space-x-8 relative">
-            
             {/* Animated Morphing Blob */}
             <motion.div
               className="absolute -z-5 left-1/2 -translate-x-1/2 top-0"
@@ -77,17 +64,13 @@ const Navbar = () => {
               </svg>
             </motion.div>
             {["Shop", "Causes", "How It Works", "About Us"].map((item) => (
-  <a
-    key={item}
-    href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-    className="relative group inline-block px-4 py-2 rounded-full overflow-hidden font-medium z-10"
-  >
-    <span className="absolute inset-0 bg-gradient-to-tr from-blue-500 via-black to-white opacity-0 transform scale-0 origin-bottom-left transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 rounded-full z-0"></span>
-    <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-      {item}
-    </span>
-  </a>
-))}
+              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} className="relative group inline-block px-4 py-2 rounded-full overflow-hidden font-medium z-10">
+                <span className="absolute inset-0 bg-gradient-to-tr from-blue-500 via-black to-white opacity-0 transform scale-0 origin-bottom-left transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 rounded-full z-0"></span>
+                <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
+                  {item}
+                </span>
+              </a>
+            ))}
           </div>
 
           {/* Right Icons */}
@@ -152,7 +135,10 @@ const Navbar = () => {
             {/* Profile */}
             <div className="relative">
               <a
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                onClick={() => {
+                  setIsProfileOpen(!isProfileOpen);
+                  navigate("/profile");  // Navigate to the profile page
+                }}
                 className="w-8 h-8 bg-gray-300 rounded-full cursor-pointer block"
               ></a>
               <AnimatePresence>
