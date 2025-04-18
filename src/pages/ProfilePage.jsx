@@ -3,6 +3,10 @@ import TopStats from "@/components/profile/TopStats";
 import ExportShareButtons from "@/components/profile/ExportShareButtons";
 import Sidebar from "@/components/profile/Sidebar";
 import DonationImpact from "@/components/profile/DonationImpact";
+import RecentPurchases from "@/components/profile/RecentPurchases";
+import NFTBadges from "@/components/profile/NFTBadges";
+import Footer from "@/components/common/Footer";
+import AIRecommendations from "@/components/profile/AIRecommendations";
 
 const Profile = () => {
   const dummyData = [
@@ -13,11 +17,8 @@ const Profile = () => {
   ];
 
   return (
-   
-    <main className="bg-gray-50 min-h-screen 
-    mt-[150px] p-4">
-       <Navbar />
-      {/* Header with buttons */}
+    <main className="bg-gray-50 min-h-screen mt-[150px] ">
+      <Navbar />
       <div className="flex justify-between items-center flex-wrap gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold">Your Impact Dashboard</h1>
@@ -32,9 +33,20 @@ const Profile = () => {
         <div className="flex-1 space-y-6">
           <TopStats />
           <DonationImpact />
+          {/* 🛍️ New Section: Purchase + NFT */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <RecentPurchases />
+            <NFTBadges />
+           
+          
+          </div>
+          <AIRecommendations/>
         </div>
       </div>
+      <Footer />
+      
     </main>
+    
   );
 };
 

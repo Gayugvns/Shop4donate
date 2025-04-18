@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch, FaHeart, FaShoppingCart, FaBell, FaBars, FaTimes, FaUser, FaMoon, FaSun } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
+import { useNavigate } from "react-router-dom";
 
-// Navbar Component
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,19 +10,17 @@ const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [cartItems] = useState(3); // Change this dynamically later
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false); // Notification dropdown
+  const [cartItems] = useState(3);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
-  const navigate = useNavigate();  // Hook to navigate programmatically
+  const navigate = useNavigate();
 
-  // Scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Dark mode
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
@@ -32,7 +29,9 @@ const Navbar = () => {
     <div className={`fixed w-full top-8 z-50 ${darkMode ? "dark" : ""}`}>
       <div className="text-black dark:text-white">
         <div
-          className={`mx-2 max-w-9xl px-2 py-3 mb-5 flex items-center justify-between transition-all duration-300 ${scrolled ? "backdrop-blur-lg bg-white/30 dark:bg-gray-800/40 shadow-md rounded-b-2xl" : "bg-transparent"}`}
+          className={`mx-2 max-w-9xl px-2 py-3 mb-5 flex items-center justify-between transition-all duration-300 ${
+            scrolled ? "backdrop-blur-lg bg-white/30 dark:bg-gray-800/40 shadow-md rounded-b-2xl" : "bg-transparent"
+          }`}
         >
           {/* Logo */}
           <a href="/" className="flex items-center space-x-6 ms-5 cursor-pointer">
@@ -41,7 +40,6 @@ const Navbar = () => {
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center space-x-8 relative">
-            {/* Animated Morphing Blob */}
             <motion.div
               className="absolute -z-5 left-1/2 -translate-x-1/2 top-0"
               initial={{ scale: 0.8, opacity: 0.3 }}
@@ -54,44 +52,53 @@ const Navbar = () => {
                   d="M43.1,-76.5C56.6,-68.6,68,-56.7,71.2,-43.3C74.5,-29.9,69.5,-15,68,-0.1C66.6,14.9,68.7,29.8,63.3,42.1C57.8,54.4,44.8,64.2,30.3,71.5C15.8,78.8,-0.2,83.6,-13.7,78.3C-27.1,73.1,-38.1,57.7,-49.4,44.2C-60.6,30.6,-72.2,18.9,-74.9,5.6C-77.6,-7.7,-71.3,-22.6,-61.9,-34.2C-52.5,-45.7,-40,-53.9,-27.3,-61.9C-14.6,-69.9,-1.8,-77.8,11.6,-83.5C25.1,-89.2,39.2,-92.1,43.1,-76.5Z"
                   animate={{
                     d: [
-                      "M43.1,-76.5C56.6,-68.6,68,-56.7,...",
-                      "M54.5,-61.1C64.2,-53.3,...",
                       "M43.1,-76.5C56.6,-68.6,...",
+                      "M54.5,-61.1C64.2,-53.3,...",
+                      "M43.1,-76.5C56.6,-68.6,..."
                     ],
                   }}
                   transition={{ duration: 18, ease: "easeInOut", repeat: Infinity }}
                 />
               </svg>
             </motion.div>
-            {["Shop", "Causes", "How It Works", "About Us"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} className="relative group inline-block px-4 py-2 rounded-full overflow-hidden font-medium z-10">
-                <span className="absolute inset-0 bg-gradient-to-tr from-blue-500 via-black to-white opacity-0 transform scale-0 origin-bottom-left transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 rounded-full z-0"></span>
-                <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                  {item}
-                </span>
-              </a>
-            ))}
+            {["Shop", "Causes", "How It Works", "About Us"].map((item) => {
+              const path = item === "About Us" ? "/About" : `#${item.toLowerCase().replace(/\s+/g, "-")}`;
+              const handleClick = (e) => {
+                e.preventDefault();
+                if (item === "About Us") {
+                  navigate(path);
+                } else {
+                  const el = document.getElementById(path.substring(1));
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }
+              };
+              return (
+                <a
+                  key={item}
+                  href={path}
+                  onClick={handleClick}
+                  className="relative group inline-block px-4 py-2 rounded-full overflow-hidden font-medium z-10"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-tr from-blue-500 via-black to-white opacity-0 transform scale-0 origin-bottom-left transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 rounded-full z-0"></span>
+                  <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
+                    {item}
+                  </span>
+                </a>
+              );
+            })}
           </div>
 
           {/* Right Icons */}
           <div className="flex items-center space-x-6">
-            {/* Search */}
             <a onClick={() => setIsSearchOpen(true)} className="cursor-pointer">
               <FaSearch className="text-lg" />
             </a>
+            <a href="/wishlist"><FaHeart className="text-lg" /></a>
 
-            {/* Wishlist */}
-            <a href="/wishlist">
-              <FaHeart className="text-lg" />
-            </a>
-
-            {/* Cart */}
             <div className="relative">
               <a onClick={() => setIsCartOpen(!isCartOpen)} className="relative cursor-pointer">
                 <FaShoppingCart className="text-lg" />
-                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs px-1.5 rounded-full">
-                  {cartItems}
-                </span>
+                <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs px-1.5 rounded-full">{cartItems}</span>
               </a>
               <AnimatePresence>
                 {isCartOpen && (
@@ -102,15 +109,12 @@ const Navbar = () => {
                     className="absolute top-8 right-0 bg-white dark:bg-gray-800 p-4 rounded shadow-md z-50 w-60"
                   >
                     <p className="text-sm">Your cart has {cartItems} item(s).</p>
-                    <a href="/cart" className="text-blue-500 hover:underline text-sm">
-                      Go to Cart
-                    </a>
+                    <a href="/cart" className="text-blue-500 hover:underline text-sm">Go to Cart</a>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Notifications */}
             <div className="relative">
               <a onClick={() => setIsNotificationOpen(!isNotificationOpen)} className="cursor-pointer">
                 <FaBell className="text-lg" />
@@ -124,9 +128,7 @@ const Navbar = () => {
                     className="absolute top-8 right-0 bg-white dark:bg-gray-800 p-4 rounded shadow-md z-50 w-64"
                   >
                     <p className="text-sm font-medium mb-2">Notifications</p>
-                    <ul className="text-sm space-y-1">
-                      <li>No new notifications</li>
-                    </ul>
+                    <ul className="text-sm space-y-1"><li>No new notifications</li></ul>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -137,7 +139,7 @@ const Navbar = () => {
               <a
                 onClick={() => {
                   setIsProfileOpen(!isProfileOpen);
-                  navigate("/profile");  // Navigate to the profile page
+                  navigate("/profile");
                 }}
                 className="w-8 h-8 bg-gray-300 rounded-full cursor-pointer block"
               ></a>
@@ -151,37 +153,22 @@ const Navbar = () => {
                   >
                     <div>Profile</div>
                     <div className="text-xs text-gray-500">Silver Donor</div>
-                    <a href="/dashboard" className="block text-sm hover:text-yellow-500">
-                      Dashboard
-                    </a>
-                    <a href="/logout" className="block text-sm hover:text-yellow-500">
-                      Logout
-                    </a>
+                    <a href="/dashboard" className="block text-sm hover:text-yellow-500">Dashboard</a>
+                    <a href="/logout" className="block text-sm hover:text-yellow-500">Logout</a>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* Dark Mode Toggle */}
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-            >
+            <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
               {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon />}
             </button>
 
-            {/* Start Shopping CTA */}
-            <a
-              href="/shop"
-              className="ml-2 relative px-4 py-4 rounded-full overflow-hidden text-black text-lg font-medium shadow-lg border border-transparent group"
-            >
+            <a href="/shop" className="ml-2 relative px-4 py-4 rounded-full overflow-hidden text-black text-lg font-medium shadow-lg border border-transparent group">
               <span className="absolute inset-0 bg-gradient-to-tr from-blue-500 via-black to-white opacity-0 transform scale-0 origin-bottom-left transition-all duration-500 group-hover:scale-100 group-hover:opacity-100 rounded-full z-0"></span>
-              <span className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                Start Shopping 🛒
-              </span>
+              <span className="relative z-10 transition-colors duration-500 group-hover:text-white">Start Shopping 🛒</span>
             </a>
 
-            {/* Mobile Menu Toggle */}
             <button className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -197,11 +184,23 @@ const Navbar = () => {
               exit={{ opacity: 0, y: -15 }}
               className="md:hidden bg-white dark:bg-gray-900 text-black dark:text-white py-4 px-6 space-y-4"
             >
-              {["Shop", "Causes", "How It Works", "About Us"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} className="block">
-                  {item}
-                </a>
-              ))}
+              {["Shop", "Causes", "How It Works", "About Us"].map((item) => {
+                const path = item === "About Us" ? "/About" : `#${item.toLowerCase().replace(/\s+/g, "-")}`;
+                const handleClick = (e) => {
+                  e.preventDefault();
+                  if (item === "About Us") {
+                    navigate(path);
+                  } else {
+                    const el = document.getElementById(path.substring(1));
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }
+                };
+                return (
+                  <a key={item} href={path} onClick={handleClick} className="block">
+                    {item}
+                  </a>
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>

@@ -5,6 +5,7 @@ import Profile from "./pages/ProfilePage";
 import Settings from "./pages/Settings";
 import Notifications from "./pages/Notifications";
 import DonationHistory from "./pages/DonationHistory";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/donations" element={<DonationHistory />} />
+        <Route path="/about" element={<About />} />
       </Routes>
      
      

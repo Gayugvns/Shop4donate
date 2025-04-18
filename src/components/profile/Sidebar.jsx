@@ -26,10 +26,18 @@ const navItems = [
 const Sidebar = () => {
   const fileInputRef = useRef(null);
   const [profileImage, setProfileImage] = useState(null);
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
 
+  // Load saved profile data from localStorage
   useEffect(() => {
     const savedImage = localStorage.getItem("profileImage");
+    const savedName = localStorage.getItem("profileName");
+    const savedTitle = localStorage.getItem("profileTitle");
+
     if (savedImage) setProfileImage(savedImage);
+    if (savedName) setName(savedName);
+    if (savedTitle) setTitle(savedTitle);
   }, []);
 
   const handleImageClick = () => {
@@ -43,10 +51,16 @@ const Sidebar = () => {
       reader.onloadend = () => {
         const imageData = reader.result;
         setProfileImage(imageData);
-        localStorage.setItem("profileImage", imageData);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleSaveChanges = () => {
+    localStorage.setItem("profileImage", profileImage);
+    localStorage.setItem("profileName", name);
+    localStorage.setItem("profileTitle", title);
+    alert("Profile changes saved!");
   };
 
   return (
@@ -75,10 +89,22 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Profile Info */}
-      <div className="text-center mt-14">
-        <h2 className="font-semibold text-lg">Alex Johnson</h2>
-        <p className="text-sm text-gray-500">Member since March 2025</p>
+      {/* Editable Profile Info */}
+      <div className="text-center mt-14 px-4">
+        <input
+          type="text"
+          className="w-full text-center font-semibold text-lg border-b focus:outline-none"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your Name"
+        />
+        <input
+          type="text"
+          className="w-full text-center text-sm text-gray-500 border-b focus:outline-none mt-1"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Your Title (e.g. Member since...)"
+        />
         <span className="inline-block mt-2 px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-900 rounded-full">
           Silver Impact Maker
         </span>
@@ -103,6 +129,16 @@ const Sidebar = () => {
             style={{ width: "62%" }}
           ></div>
         </div>
+      </div>
+
+      {/* Save Button */}
+      <div className="px-6 mb-4 text-center">
+        <button
+          onClick={handleSaveChanges}
+          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg w-full transition"
+        >
+          Save Changes
+        </button>
       </div>
 
       {/* Navigation */}

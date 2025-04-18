@@ -103,6 +103,17 @@ const config = {
       },
     },
   },
+  keyframes: {
+    // ... existing keyframes
+    zoomInOut: {
+      "0%, 100%": { transform: "scale(1)" },
+      "50%": { transform: "scale(1.00)" },
+    },
+  },
+  animation: {
+    // ... existing animations
+    zoomSlow: "zoomInOut 50s ease-in-out infinite",
+  },
   plugins: [tailwindcssAnimate],
 };
 
