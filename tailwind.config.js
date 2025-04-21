@@ -9,7 +9,6 @@ const config = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-
   theme: {
     extend: {
       borderRadius: {
@@ -62,12 +61,12 @@ const config = {
           5: "hsl(var(--chart-5))",
         },
       },
-
       animation: {
         "spin-slow": "spin 6s linear infinite",
         "pulse-glow": "pulseGlow 2s ease-in-out infinite",
         glow: "glow 3s ease-in-out infinite",
         "support-hover": "supportHover 1s ease-in-out infinite alternate",
+        zoomSlow: "zoomInOut 30s ease-in-out infinite", // ✅ fixed!
       },
       keyframes: {
         spin: {
@@ -100,19 +99,12 @@ const config = {
             boxShadow: "0 0 15px rgba(0, 132, 255, 0.9)",
           },
         },
+        zoomInOut: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+        },
       },
     },
-  },
-  keyframes: {
-    // ... existing keyframes
-    zoomInOut: {
-      "0%, 100%": { transform: "scale(1)" },
-      "50%": { transform: "scale(1.00)" },
-    },
-  },
-  animation: {
-    // ... existing animations
-    zoomSlow: "zoomInOut 50s ease-in-out infinite",
   },
   plugins: [tailwindcssAnimate],
 };

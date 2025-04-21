@@ -10,7 +10,7 @@ const AboutSection = () => {
       {/* Foreground Content */}
       <div className="relative z-10 max-w-3xl text-center text-white">
         {/* Logo Image */}
-        <div className="mb-6 flex justify-center">
+        <div className="mb-6 mt-10 flex justify-center">
         <img
   src={Give}
   alt="Give4Change Logo"
