@@ -185,8 +185,14 @@ const AffiliateDonation = () => {
               Earn NFT badges based on your impact that you can share on social media.
             </span>
           </div>
+          <button
+  onClick={() => window.open('https://charitydigital.org.uk/topics/topics/an-introduction-to-nfts-for-charities-8804', '_blank')}
+  className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-blue-600 transition"
+>
+  Learn More About Our Process
+</button>
 
-          <button className="learn-more-btn">Learn More About Our Process</button>
+          
         </div>
 
         {/* Right Section */}

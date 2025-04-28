@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import {
   LayoutDashboard,
@@ -6,7 +6,6 @@ import {
   Heart,
   BadgePercent,
   CalendarDays,
-  CreditCard,
   Gift,
   Bell,
   Settings,
@@ -28,8 +27,8 @@ const Sidebar = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
-  // Load saved profile data from localStorage
   useEffect(() => {
     const savedImage = localStorage.getItem("profileImage");
     const savedName = localStorage.getItem("profileName");
@@ -61,6 +60,14 @@ const Sidebar = () => {
     localStorage.setItem("profileName", name);
     localStorage.setItem("profileTitle", title);
     alert("Profile changes saved!");
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setProfileImage(null);
+    setName("");
+    setTitle("");
+    navigate("/");
   };
 
   return (
@@ -142,7 +149,7 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="px-4 pb-6 space-y-1 text-sm font-medium">
+      <nav className="px-4 pb-4 space-y-1 text-sm font-medium">
         {navItems.map(({ label, path, icon: Icon }) => (
           <NavLink
             key={path}
@@ -159,6 +166,16 @@ const Sidebar = () => {
           </NavLink>
         ))}
       </nav>
+
+      {/* Logout Button */}
+      <div className="px-6 mb-6">
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

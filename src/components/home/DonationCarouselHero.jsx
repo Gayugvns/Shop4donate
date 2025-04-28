@@ -87,7 +87,7 @@ const DonationCarouselHero = () => {
         </p>
         <button>
           <a
-            href="/shop"
+            href="/products"
             className="ml-2 relative p-2 py-4 rounded-full bg-white overflow-hidden text-black text-sm font-medium shadow-lg border border-transparent group flex items-center gap-2"
           >
             {/* Shopping Bag Icon */}
@@ -134,7 +134,7 @@ const DonationCarouselHero = () => {
 <AnimatePresence mode="wait">
   <motion.div
     key={quoteIndex}
-    className="absolute inset-0 flex items-center justify-center justify-content font-supreme text-6xl mt-[300px] ms-[150px] bg-transparent bg-opacity-40 text-white text-lg font-semibold text-center px-6"
+    className="absolute inset-0 flex items-center justify-center justify-content font-supreme text-6xl mt-[300px] ms-[150px] bg-transparent bg-opacity-40 text-white font-semibold text-center px-6"
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -10 }}

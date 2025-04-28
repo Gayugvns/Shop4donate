@@ -1,16 +1,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path"; // 👈 import path for resolving
-import { fileURLToPath } from "url"; // 👈 import fileURLToPath for ES modules
+import path from "path";
+import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url)); // 👈 define __dirname manually
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // 👈 this sets @ to your src folder
+      "@": path.resolve(__dirname, "src"),
     },
+  },
+  server: {
+    historyApiFallback: true,
+  },
+  optimizeDeps: {
+    include: ["jwt-decode"], // ✅ Add this line if you're using jwt-decode
   },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import Give from '/images/give.png'; // logo
+import Give from '/images/download.png'; // logo
 
 
 const AboutSection = () => {

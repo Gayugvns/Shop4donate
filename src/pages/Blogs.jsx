@@ -9,7 +9,7 @@ const Blogs = () => {
   return (
     <>
       <Navbar />
-      <main className="relative">
+      <main className="relative mt-[150px]">
         <Swipper />
 
         {/* Overlapping Blog Card */}

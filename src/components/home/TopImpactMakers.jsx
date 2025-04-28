@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const initialLeaders = [
   { name: 'Sarah Johnson', amount: 1250, badge: 'Platinum Impact Maker' },
@@ -15,10 +16,12 @@ const rankColors = [
     'linear-gradient(to right, #b3e5fc, #81d4fa)'  // 4th
   ];
 
+
+
 export default function TopImpactMakers() {
   const [leaders, setLeaders] = useState(initialLeaders);
   const controls = useAnimation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const interval = setInterval(() => {
       setLeaders((prev) => {
@@ -94,7 +97,11 @@ export default function TopImpactMakers() {
             Your current rank:{' '}
             <span className="font-semibold text-white">#42 with $120</span> donated
           </p>
-          <button className="mt-2 px-4 py-2 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition">
+          <button
+      onClick={() => navigate('/Products')}
+      className="mt-2 px-4 py-2 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition">
+    
+          
             Increase Your Impact
           </button>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import journey from "/images/journey.jpg"; // replace with your image path
 
+
 const HowItStartedSection = () => {
   const [expanded, setExpanded] = useState(false);
 
